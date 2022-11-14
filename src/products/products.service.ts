@@ -5,11 +5,11 @@ import { CreateProductDto, UpdateProductDto } from './shared/dto/create-product.
 @Injectable()
 export class ProductsService {
   create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+    return createProductDto;
   }
 
   findAll() {
-    return `This action returns all products`;
+    return `This action returns all productss`;
   }
 
   findOne(_id: string) {
