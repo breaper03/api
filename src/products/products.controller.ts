@@ -11,14 +11,14 @@ export class ProductsController {
   @Get()
   findAll(@Res() res) {
     return res.status(HttpStatus.OK).json({
-      message: `received...`
+      message: `get all received...`
     }), this.productsService.findAll();
   }
   
   @Get(':id')
   findOne(@Param('id') _id: string, @Res() res) {
     return res.status(HttpStatus.OK).json({
-      message: `received the id...`
+      message: `get one received the ${_id}...`
     }), this.productsService.findOne(_id);
   }
 
