@@ -6,7 +6,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 @Module({
   imports: [
     ProductsModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/api'),
+    MongooseModule.forRoot('mongodb+srv://breaper03:G1br32l*-@cluster0.heeux3z.mongodb.net/test', {
+      retryAttempts: 4
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, HttpStatus, NotFoundException } from '@nestjs/common';
 import { Put, Res } from '@nestjs/common/decorators';
 import { ProductsService } from './products.service';
 import { CreateProductDto, UpdateProductDto } from './shared/dto/create-product.dto';
@@ -9,39 +9,47 @@ export class ProductsController {
 
   
   @Get()
-  findAll(@Res() res) {
+  async findAll(@Res() res) {
+    const products = await this.productsService.findAll()
     return res.status(HttpStatus.OK).json({
-      message: `get all received...`
-    }), this.productsService.findAll();
+      products
+    })
   }
   
   @Get(':id')
-  findOne(@Param('id') _id: string, @Res() res) {
-    return res.status(HttpStatus.OK).json({
-      message: `get one received the ${_id}...`
-    }), this.productsService.findOne(_id);
+  async findOne(@Param('id') _id: string, @Res() res) {
+    const product = await this.productsService.findOne(_id);
+    if (!product ) throw new NotFoundException('Product not Exist')
+      return res.status(HttpStatus.OK).json({
+      product
+    })
   }
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto, @Res() res) {
+  async create(@Body() createProductDto: CreateProductDto, @Res() res) {
+    const product = await this.productsService.create(createProductDto);
     return res.status(HttpStatus.OK).json({
-      message: `create...`
-    }), 
-    
-    this.productsService.create(createProductDto);
+      message: `received...`,
+      product: product
+    })
   }
   
   @Put(':id')
   update(@Param('id') _id: string, @Body() updateProductDto: UpdateProductDto, @Res() res) {
+    const product = this.productsService.update(_id, updateProductDto);
+    if (!product ) throw new NotFoundException('Product not Exist')
     return res.status(HttpStatus.OK).json({
-      message: `updated...`
-    }), this.productsService.update(_id, updateProductDto);
+      message: `updated...`,
+      product
+    })
   }
 
   @Delete(':id')
   remove(@Param('id') _id: string, @Res() res) {
+    const product = this.productsService.delete(_id)
+    if (!product ) throw new NotFoundException('Product not Exist')
     return res.status(HttpStatus.OK).json({
-      message: `deleted...`
-    }), this.productsService.remove(_id);
+      product
+    })
   }
 }
