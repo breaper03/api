@@ -25,7 +25,7 @@ export class ProductsController {
     })
   }
 
-  @Post()
+  @Post('/create')
   async create(@Body() createProductDto: CreateProductDto, @Res() res) {
     const product = await this.productsService.create(createProductDto);
     return res.status(HttpStatus.OK).json({
