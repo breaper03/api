@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { MongooseModule } from '@nestjs/mongoose';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors()
   const DB = MongooseModule
   const options = new DocumentBuilder()
   .setTitle('API')
