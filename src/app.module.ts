@@ -4,8 +4,8 @@ import { AppService } from './app.service';
 import { ProductsModule } from './products/products.module';
 import { MongooseModule } from '@nestjs/mongoose';
 @Module({
-  imports: [
-    ProductsModule,
+  imports: [ 
+    ProductsModule,       //mongodb+srv://breaper03:G1br32l*-@cluster0.heeux3z.mongodb.net/test
     MongooseModule.forRoot('mongodb+srv://breaper03:G1br32l*-@cluster0.heeux3z.mongodb.net/api', {
       retryAttempts: 4
     }),
