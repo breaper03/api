@@ -28,6 +28,6 @@ export class ProductsService {
   }
 
   async delete(_id: string): Promise<Products> {
-    return await this.productModel.findByIdAndDelete(_id, {new: true})
+    return await this.productModel.findByIdAndDelete(_id)
   }
 }
